@@ -10,7 +10,7 @@ app = FastAPI()
 @app.get("/", response_class=PlainTextResponse)
 def get_greeting(name: str = "") -> str:
     output = greet(name)
-    return output 
+    return output
 
 
 if __name__ == "__main__":
