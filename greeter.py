@@ -1,4 +1,5 @@
 def greet(name: str) -> str:
-    if len(name) == 0:
+    cleaned_name = name.strip()
+    if len(cleaned_name) == 0:
         return "Hello World!"
     return f"Hello {name}!"
