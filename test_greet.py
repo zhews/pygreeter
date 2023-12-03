@@ -13,7 +13,7 @@ class TestGreeter(unittest.TestCase):
         ]
         for case in cases:
             with self.subTest(name=case.get("name")):
-                input = case.get("name")
+                name = case.get("name")
                 expected_output = case.get("expected_output")
-                output = greet(input)
+                output = greet(name)
                 self.assertEqual(output, expected_output)
