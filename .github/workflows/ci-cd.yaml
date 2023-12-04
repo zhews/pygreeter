@@ -16,12 +16,23 @@ jobs:
       - run: "pylint *.py --disable=C"
       - run: "python -m unittest"
 
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - uses: "actions/checkout@v4"
       - uses: "redhat-actions/buildah-build@v2"
+        id: "build"
         with:
           image: "pygreeter"
           tags: "latest ${{ github.sha }}"
           containerfiles: "./Containerfile"
+      - uses: "redhat-actions/push-to-registry@v2"
+        if: "github.ref == 'refs/heads/main'"
+        env:
+          IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"
+        with:
+          image: "${{ steps.build.outputs.image }}"
+          tags: "${{ steps.build.outputs.tags }}"
+          registry: "${{ env.IMAGE_REGISTRY }}"
+          username: "$"
+          password: "${{ secrets.GITHUB_TOKEN }}"
