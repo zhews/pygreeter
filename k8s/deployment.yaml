@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pygreeter
+  name: pygreeter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pygreeter
+  template:
+    metadata:
+      labels:
+        app: pygreeter
+    spec:
+      containers:
+        - image: ghcr.io/zhews/pygreeter
+          name: pygreeter
+          ports:
+            - containerPort: 8080
